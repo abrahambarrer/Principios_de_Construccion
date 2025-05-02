@@ -1,0 +1,10 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+SistemaBiblioteca,Biblioteca,Libro,72,60,4,4,20,17,13,6,10,5
+SistemaBiblioteca,Biblioteca,Ebook,25,0,0,0,7,0,4,0,4,0
+SistemaBiblioteca,Biblioteca,Profesor,23,0,0,0,7,0,4,0,4,0
+SistemaBiblioteca,Biblioteca,Estudiante,13,10,0,0,4,3,3,1,3,1
+SistemaBiblioteca,Biblioteca,Rustico,13,12,0,0,4,3,3,1,3,1
+SistemaBiblioteca,Biblioteca,Audiolibro,25,0,0,0,7,0,4,0,4,0
+SistemaBiblioteca,Biblioteca,Prestamo,33,30,0,0,15,11,9,4,9,4
+SistemaBiblioteca,Biblioteca,BibliotecaApp,566,186,56,14,181,44,49,20,13,16
+SistemaBiblioteca,Biblioteca,Usuario,44,41,1,3,14,11,9,4,8,3

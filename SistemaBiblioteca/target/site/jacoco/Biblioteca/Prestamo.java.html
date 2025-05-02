@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Prestamo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SistemaBiblioteca</a> &gt; <a href="index.source.html" class="el_package">Biblioteca</a> &gt; <span class="el_source">Prestamo.java</span></div><h1>Prestamo.java</h1><pre class="source lang-java linenums">package Biblioteca;
+
+import java.util.Date;
+
+/**
+ * Esta clase contiene la informacion relativa a un prestamo realizado para un usuario
+ * de un libro, asi como sus getters y setters
+ */
+public class Prestamo {
+    private int id;
+    private int idLibro;
+    private int idUsuario;
+    private Date fechaPrestamo;
+    private Date fechaDevolucion;
+    private boolean devuelto;
+
+    /**
+     * Constructor de la clase
+     * @param id El id del nuevo prestamo
+     * @param idLibro El id del libro prestado
+     * @param idUsuario El id del usuario que solicita el prestamo
+     * @param fechaPrestamo La fecha de emision del prestamo
+     * @param fechaDevolucion La fecha de devolucion del libro
+     * @param devuelto El estado de devolucion actual del prestamo
+     */
+<span class="fc" id="L26">    public Prestamo(int id, int idLibro, int idUsuario, Date fechaPrestamo, Date fechaDevolucion, boolean devuelto) {</span>
+<span class="fc" id="L27">        this.id = id;</span>
+<span class="fc" id="L28">        this.idLibro = idLibro;</span>
+<span class="fc" id="L29">        this.idUsuario = idUsuario;</span>
+<span class="fc" id="L30">        this.fechaPrestamo = fechaPrestamo;</span>
+<span class="fc" id="L31">        this.fechaDevolucion = fechaDevolucion;</span>
+<span class="fc" id="L32">        this.devuelto = devuelto;</span>
+<span class="fc" id="L33">    }</span>
+
+    // Getters y setters
+
+    /**
+     * Getter id
+     * @return el id del prestamo
+     */
+    public int getId() {
+<span class="nc" id="L42">        return id;</span>
+    }
+
+    /**
+     * Setter id
+     * @param id El parametro para modificar el id del prestamo
+     */
+    public void setId(int id) {
+<span class="nc" id="L50">        this.id = id;</span>
+<span class="nc" id="L51">    }</span>
+
+    /**
+     * Getter idLibro
+     * @return el id del libro correspondiente al prestamo
+     */
+    public int getIdLibro() {
+<span class="fc" id="L58">        return idLibro;</span>
+    }
+
+    /**
+     * Setter idLibro
+     * @param idLibro El parametro para modificar el id del libro correspondiente
+     */
+    public void setIdLibro(int idLibro) {
+<span class="nc" id="L66">        this.idLibro = idLibro;</span>
+<span class="nc" id="L67">    }</span>
+
+    /**
+     * Getter idUsuario
+     * @return el id del usuario que solicita el prestamo
+     */
+    public int getIdUsuario() {
+<span class="fc" id="L74">        return idUsuario;</span>
+    }
+
+    /**
+     * Setter idUsuario
+     * @param idUsuario El parametro para modificar el id del usuario que solicita el prestamo
+     */
+    public void setIdUsuario(int idUsuario) {
+<span class="nc" id="L82">        this.idUsuario = idUsuario;</span>
+<span class="nc" id="L83">    }</span>
+
+    /**
+     * Getter fechaPrestamo
+     * @return la fecha de emision del prestamo
+     */
+    public Date getFechaPrestamo() {
+<span class="nc" id="L90">        return fechaPrestamo;</span>
+    }
+
+    /**
+     * Setter fechaPrestamo
+     * @param fechaPrestamo El parametro para modificar la fecha de emision del prestamo
+     */
+    public void setFechaPrestamo(Date fechaPrestamo) {
+<span class="nc" id="L98">        this.fechaPrestamo = fechaPrestamo;</span>
+<span class="nc" id="L99">    }</span>
+
+    /**
+     * Getter fechaDevolucion
+     * @return la fecha de devolucion del libro
+     */
+    public Date getFechaDevolucion() {
+<span class="nc" id="L106">        return fechaDevolucion;</span>
+    }
+
+    /**
+     * Setter fechaDevolucion
+     * @param fechaDevolucion El parametro para modificar la fecha de devolucion del libro
+     */
+    public void setFechaDevolucion(Date fechaDevolucion) {
+<span class="nc" id="L114">        this.fechaDevolucion = fechaDevolucion;</span>
+<span class="nc" id="L115">    }</span>
+
+    /**
+     * Getter devuelto
+     * @return el estado de devolucion del libro
+     */
+    public boolean isDevuelto() {
+<span class="fc" id="L122">        return devuelto;</span>
+    }
+
+    /**
+     * Setter devuelto
+     * @param devuelto El parametro para modificar el estado de devolucion del libro
+     */
+    public void setDevuelto(boolean devuelto) {
+<span class="nc" id="L130">        this.devuelto = devuelto;</span>
+<span class="nc" id="L131">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Audiolibro.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SistemaBiblioteca</a> &gt; <a href="index.source.html" class="el_package">Biblioteca</a> &gt; <span class="el_source">Audiolibro.java</span></div><h1>Audiolibro.java</h1><pre class="source lang-java linenums">package Biblioteca;
+
+/**
+ * Esta clase hereda de la clase libro, agregando el atributo formato
+ * para posibles comportamientos implementables de un audiolibro
+ */
+public class Audiolibro extends Libro{
+    private String formato;
+
+    /**
+     * Constructor de la clase
+     * @param id El id del audiolibro
+     * @param titulo El titulo del audiolibro
+     * @param autor Es el autor del audiolibro
+     * @param anio Es el anio original de publicacion del audiolibro
+     * @param genero Es el genero del audiolibro
+     * @param disponible Es el estado de disponibilidad del audiolibro
+     * @param formato El formato del libro
+     */
+    protected Audiolibro(int id, String titulo, String autor, int anio, String genero, boolean disponible, String formato){
+<span class="nc" id="L21">        super(id, titulo, autor, anio, genero, disponible);</span>
+<span class="nc" id="L22">        this.formato = formato;</span>
+<span class="nc" id="L23">    }</span>
+
+    /**
+     * Geter formato
+     * @return el formato del libro
+     */
+    @Override
+    public String getFormato() {
+<span class="nc" id="L31">        return formato;</span>
+    }
+
+    /**
+     * Setter formato
+     * @param formato El parametro para modificar el formato del libro
+     */
+    @Override
+    public void setFormato(String formato) {
+<span class="nc" id="L40">        this.formato = formato;</span>
+<span class="nc" id="L41">    }</span>
+
+    /**
+     * Metodo toString del audiolibro
+     * @return cadena que extiende al metodo toString de la clase Libro
+     * @see class Libro
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L50">        return super.toString() + &quot; | Formato: &quot; + this.getFormato();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BibliotecaApp.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SistemaBiblioteca</a> &gt; <a href="index.source.html" class="el_package">Biblioteca</a> &gt; <span class="el_source">BibliotecaApp.java</span></div><h1>BibliotecaApp.java</h1><pre class="source lang-java linenums">package Biblioteca;
+
+import java.util.Date;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Esta clase permite el manejo de libros y usuarios de una biblioteca,
+ * se permiten los metodos para registrar un libro, registrar usuario,
+ * prestar libro, devolver libro, buscar libro, ver todos los libros,
+ * ver todos los usuarios y ver prestamos activos
+ * @author Abraham Barrera
+ * @version 1.1
+ */
+<span class="fc" id="L15">public class BibliotecaApp {</span>
+
+<span class="fc" id="L17">    private ArrayList&lt;Libro&gt; libros = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L18">    private ArrayList&lt;Usuario&gt; usuarios = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L19">    private ArrayList&lt;Prestamo&gt; prestamos = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L20">    private Scanner scanner = new Scanner(System.in);</span>
+
+
+    public static void main(String[] args) throws Exception {
+        // Agregar algunos datos de ejemplo
+<span class="nc" id="L25">        BibliotecaApp miBibliioteca = new BibliotecaApp();</span>
+
+<span class="nc" id="L27">        miBibliioteca.inicializarDatos();</span>
+
+<span class="nc" id="L29">        miBibliioteca.menu();</span>
+<span class="nc" id="L30">    }</span>
+
+    /**
+     * Metodo menu de la aplicacion de la biblioteca
+     */
+    public void menu() {
+<span class="nc" id="L36">        boolean salir = false;</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        while (!salir) {</span>
+<span class="nc" id="L38">            System.out.println(&quot;--- SISTEMA DE BIBLIOTECA ---&quot;);</span>
+<span class="nc" id="L39">            System.out.println(&quot;1. Registrar nuevo libro&quot;);</span>
+<span class="nc" id="L40">            System.out.println(&quot;2. Registrar nuevo usuario&quot;);</span>
+<span class="nc" id="L41">            System.out.println(&quot;3. Prestar libro&quot;);</span>
+<span class="nc" id="L42">            System.out.println(&quot;4. Devolver libro&quot;);</span>
+<span class="nc" id="L43">            System.out.println(&quot;5. Buscar libros&quot;);</span>
+<span class="nc" id="L44">            System.out.println(&quot;6. Ver todos los libros&quot;);</span>
+<span class="nc" id="L45">            System.out.println(&quot;7. Ver todos los usuarios&quot;);</span>
+<span class="nc" id="L46">            System.out.println(&quot;8. Ver préstamos activos&quot;);</span>
+<span class="nc" id="L47">            System.out.println(&quot;9. Salir&quot;);</span>
+<span class="nc" id="L48">            System.out.print(&quot;Seleccione una opción: &quot;);</span>
+
+<span class="nc" id="L50">            int opcion = inputNumber();</span>
+
+<span class="nc bnc" id="L52" title="All 10 branches missed.">            switch (opcion) {</span>
+                case 1:
+<span class="nc" id="L54">                    registrarLibro();</span>
+<span class="nc" id="L55">                    break;</span>
+                case 2:
+<span class="nc" id="L57">                    registrarUsuario();</span>
+<span class="nc" id="L58">                    break;</span>
+                case 3:
+<span class="nc" id="L60">                    prestarLibro();</span>
+<span class="nc" id="L61">                    break;</span>
+                case 4:
+<span class="nc" id="L63">                    devolverLibro();</span>
+<span class="nc" id="L64">                    break;</span>
+                case 5:
+<span class="nc" id="L66">                    buscarLibros();</span>
+<span class="nc" id="L67">                    break;</span>
+                case 6:
+<span class="nc" id="L69">                    mostrarLibros();</span>
+<span class="nc" id="L70">                    break;</span>
+                case 7:
+<span class="nc" id="L72">                    mostrarUsuarios();</span>
+<span class="nc" id="L73">                    break;</span>
+                case 8:
+<span class="nc" id="L75">                    mostrarPrestamosActivos();</span>
+<span class="nc" id="L76">                    break;</span>
+                case 9:
+<span class="nc" id="L78">                    salir = true;</span>
+<span class="nc" id="L79">                    System.out.println(&quot;¡Sistema de biblioteca! sesión finalizada&quot;);</span>
+<span class="nc" id="L80">                    break;</span>
+                default:
+<span class="nc" id="L82">                    System.out.println(&quot;Opción no válida.&quot;);</span>
+            }
+<span class="nc" id="L84">        }</span>
+<span class="nc" id="L85">    }</span>
+
+    /**
+     * Metodo de muestra para ver el funcionamiento del sistema
+     */
+    private void inicializarDatos() {
+        // Libros de ejemplo
+<span class="nc" id="L92">        libros.add(Libro.crearLibro(1, &quot;Don Quijote de la Mancha&quot;, &quot;Miguel de Cervantes&quot;, 1605, &quot;Ficción&quot;, true, &quot;Rustico&quot;));</span>
+<span class="nc" id="L93">        libros.add(Libro.crearLibro(2, &quot;Cien años de soledad&quot;, &quot;Gabriel García Márquez&quot;, 1967, &quot;Novela&quot;, true, &quot;Ebook&quot;));</span>
+<span class="nc" id="L94">        libros.add(Libro.crearLibro(3, &quot;El principito&quot;, &quot;Antoine de Saint-Exupéry&quot;, 1943, &quot;Fábula&quot;, true, &quot;Audiolibro&quot;));</span>
+
+        // Usuarios de ejemplo
+<span class="nc" id="L97">        usuarios.add(Usuario.crearUsuario(101, &quot;Jose Camacho&quot;, &quot;jantonio@gmail.com&quot;, &quot;123456789&quot;, &quot;Profesor&quot;));</span>
+<span class="nc" id="L98">        usuarios.add(Usuario.crearUsuario(102, &quot;Patricia Moreno&quot;, &quot;patricia@gmail.com&quot;, &quot;987654321&quot;, &quot;Profesor&quot;));</span>
+<span class="nc" id="L99">    }</span>
+
+    /**
+     * Metodo para registrar un nuevo libro solicitando datos desde la consola
+     */
+    private void registrarLibro() {
+<span class="nc" id="L105">        System.out.println(&quot;--- REGISTRAR NUEVO LIBRO ---&quot;);</span>
+
+<span class="nc" id="L107">        System.out.print(&quot;ID: &quot;);</span>
+<span class="nc" id="L108">        int id = inputNumber();</span>
+
+<span class="nc" id="L110">        System.out.print(&quot;Título: &quot;);</span>
+<span class="nc" id="L111">        String titulo = scanner.nextLine();</span>
+
+<span class="nc" id="L113">        System.out.print(&quot;Autor: &quot;);</span>
+<span class="nc" id="L114">        String autor = scanner.nextLine();</span>
+
+<span class="nc" id="L116">        System.out.print(&quot;Año: &quot;);</span>
+<span class="nc" id="L117">        int anio = inputNumber();</span>
+
+<span class="nc" id="L119">        System.out.print(&quot;Género: &quot;);</span>
+<span class="nc" id="L120">        String genero = scanner.nextLine();</span>
+
+<span class="nc" id="L122">        System.out.print(&quot;Formato: &quot;);</span>
+<span class="nc" id="L123">        String formato = scanner.nextLine();</span>
+
+<span class="nc" id="L125">        Libro nuevoLibro = Libro.crearLibro(id, titulo, autor, anio, genero, true, formato);</span>
+<span class="nc" id="L126">        libros.add(nuevoLibro);</span>
+
+<span class="nc" id="L128">        System.out.println(&quot;Libro registrado con éxito.&quot;);</span>
+<span class="nc" id="L129">    }</span>
+
+    /**
+     * Mwroso para registrar un usuario solicitando datos desde la consola
+     */
+    private void registrarUsuario() {
+<span class="nc" id="L135">        System.out.println(&quot;--- REGISTRAR NUEVO USUARIO ---&quot;);</span>
+
+<span class="nc" id="L137">        System.out.print(&quot;ID: &quot;);</span>
+<span class="nc" id="L138">        int id = scanner.nextInt();</span>
+
+<span class="nc" id="L140">        System.out.print(&quot;Nombre: &quot;);</span>
+<span class="nc" id="L141">        String nombre = scanner.nextLine();</span>
+
+<span class="nc" id="L143">        System.out.print(&quot;Email: &quot;);</span>
+<span class="nc" id="L144">        String email = scanner.nextLine();</span>
+
+<span class="nc" id="L146">        System.out.print(&quot;Teléfono: &quot;);</span>
+<span class="nc" id="L147">        String telefono = scanner.nextLine();</span>
+
+<span class="nc" id="L149">        System.out.print(&quot;Rol: &quot;);</span>
+<span class="nc" id="L150">        String rol = scanner.nextLine();</span>
+
+<span class="nc" id="L152">        Usuario nuevoUsuario = Usuario.crearUsuario(id, nombre, email, telefono, rol);</span>
+<span class="nc" id="L153">        usuarios.add(nuevoUsuario);</span>
+
+<span class="nc" id="L155">        System.out.println(&quot;Usuario registrado con éxito.&quot;);</span>
+<span class="nc" id="L156">    }</span>
+
+    /**
+     * Metodo para registrar un prestamo solicitando ID del libro y de usuario desde consola
+     */
+    private void prestarLibro() {
+<span class="nc" id="L162">        System.out.println(&quot;--- PRESTAR LIBRO ---&quot;);</span>
+
+<span class="nc" id="L164">        System.out.print(&quot;ID del libro: &quot;);</span>
+<span class="nc" id="L165">        int idLibro = inputNumber();</span>
+
+<span class="nc" id="L167">        System.out.print(&quot;ID del usuario: &quot;);</span>
+<span class="nc" id="L168">        int idUsuario = inputNumber();</span>
+
+<span class="nc" id="L170">        Libro libro = buscarLibroID(idLibro);</span>
+<span class="nc" id="L171">        Usuario usuario = buscarUsuarioID(idUsuario);</span>
+
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (libro == null) {</span>
+<span class="nc" id="L174">            System.out.println(&quot;Error: Libro no encontrado.&quot;);</span>
+<span class="nc" id="L175">            return;</span>
+        }
+
+<span class="nc bnc" id="L178" title="All 2 branches missed.">        if (usuario == null) {</span>
+<span class="nc" id="L179">            System.out.println(&quot;Error: Usuario no encontrado.&quot;);</span>
+<span class="nc" id="L180">            return;</span>
+        }
+
+<span class="nc bnc" id="L183" title="All 2 branches missed.">        if (!libro.isDisponible()) {</span>
+<span class="nc" id="L184">            System.out.println(&quot;Error: El libro no está disponible actualmente.&quot;);</span>
+<span class="nc" id="L185">            return;</span>
+        }
+
+        // Verificar si el usuario tiene más de 3 libros prestados
+<span class="nc" id="L189">        int librosUsuario = contarPrestamosUsuario(idUsuario);</span>
+
+<span class="nc bnc" id="L191" title="All 2 branches missed.">        if (librosUsuario &gt;= 3) {</span>
+<span class="nc" id="L192">            System.out.println(&quot;Error: El usuario ya tiene 3 libros prestados.&quot;);</span>
+<span class="nc" id="L193">            return;</span>
+        }
+
+        // Realizar el préstamo
+<span class="nc" id="L197">        registrarPrestamo(libro, idLibro, idUsuario);</span>
+<span class="nc" id="L198">    }</span>
+
+    /**
+     * Metodo para la devolucion de un libro mediante el ID del libro
+     */
+    private void devolverLibro() {
+<span class="nc" id="L204">        System.out.println(&quot;--- DEVOLVER LIBRO ---&quot;);</span>
+
+<span class="nc" id="L206">        System.out.print(&quot;ID del libro: &quot;);</span>
+<span class="nc" id="L207">        int idLibro = inputNumber();</span>
+
+        // Buscar préstamo activo para este libro
+<span class="nc" id="L210">        Prestamo prestamo = buscarPrestamoLibro(idLibro);</span>
+
+<span class="nc bnc" id="L212" title="All 2 branches missed.">        if (prestamo == null) {</span>
+<span class="nc" id="L213">            System.out.println(&quot;Error: No hay préstamos activos para este libro.&quot;);</span>
+<span class="nc" id="L214">            return;</span>
+        }
+
+        // Marcar préstamo como devuelto
+<span class="nc" id="L218">        prestamo.setDevuelto(true);</span>
+<span class="nc" id="L219">        prestamo.setFechaDevolucion(new Date());</span>
+
+        // Marcar libro como disponible
+<span class="nc" id="L222">        marcarLibroDisponible(idLibro);</span>
+
+<span class="nc" id="L224">        System.out.println(&quot;Libro devuelto con éxito.&quot;);</span>
+<span class="nc" id="L225">    }</span>
+
+    /**
+     * Metodo para la busqueda de un libro por titulo, autor o genero
+     */
+    private void buscarLibros() {
+<span class="nc" id="L231">        System.out.println(&quot;--- BUSCAR LIBROS ---&quot;);</span>
+<span class="nc" id="L232">        System.out.println(&quot;1. Buscar por título&quot;);</span>
+<span class="nc" id="L233">        System.out.println(&quot;2. Buscar por autor&quot;);</span>
+<span class="nc" id="L234">        System.out.println(&quot;3. Buscar por género&quot;);</span>
+<span class="nc" id="L235">        System.out.print(&quot;Seleccione una opción: &quot;);</span>
+
+<span class="nc" id="L237">        int opcion = inputNumber();</span>
+
+<span class="nc" id="L239">        System.out.print(&quot;Ingrese término de búsqueda: &quot;);</span>
+<span class="nc" id="L240">        String termino = scanner.nextLine().toLowerCase();</span>
+
+<span class="nc" id="L242">        boolean encontrado = false;</span>
+
+<span class="nc" id="L244">        System.out.println(&quot;Resultados:&quot;);</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">        for (Libro libro : libros) {</span>
+<span class="nc" id="L246">            boolean coincide = false;</span>
+
+<span class="nc bnc" id="L248" title="All 4 branches missed.">            switch (opcion) {</span>
+                case 1:
+<span class="nc" id="L250">                    coincide = libro.getTitulo().toLowerCase().contains(termino);</span>
+<span class="nc" id="L251">                    break;</span>
+                case 2:
+<span class="nc" id="L253">                    coincide = libro.getAutor().toLowerCase().contains(termino);</span>
+<span class="nc" id="L254">                    break;</span>
+                case 3:
+<span class="nc" id="L256">                    coincide = libro.getGenero().toLowerCase().contains(termino);</span>
+<span class="nc" id="L257">                    break;</span>
+                default:
+<span class="nc" id="L259">                    System.out.println(&quot;Opción no válida.&quot;);</span>
+<span class="nc" id="L260">                    return;</span>
+            }
+
+<span class="nc bnc" id="L263" title="All 2 branches missed.">            if (coincide) {</span>
+<span class="nc" id="L264">                System.out.println(libro.toString());</span>
+<span class="nc" id="L265">                encontrado = true;</span>
+            }
+<span class="nc" id="L267">        }</span>
+
+<span class="nc bnc" id="L269" title="All 2 branches missed.">        if (!encontrado) {</span>
+<span class="nc" id="L270">            System.out.println(&quot;No se encontraron libros que coincidan con la búsqueda.&quot;);</span>
+        }
+<span class="nc" id="L272">    }</span>
+
+    /**
+     * Metodo para mostrar los atributos de cada libro registrado como
+     * ID, titulo, anio, autor, genero, disponibildad y su formato
+     */
+    private void mostrarLibros() {
+<span class="nc" id="L279">        System.out.println(&quot;--- LISTADO DE LIBROS ---&quot;);</span>
+
+<span class="nc bnc" id="L281" title="All 2 branches missed.">        if (libros.isEmpty()) {</span>
+<span class="nc" id="L282">            System.out.println(&quot;No hay libros registrados.&quot;);</span>
+<span class="nc" id="L283">            return;</span>
+        }
+
+<span class="nc bnc" id="L286" title="All 2 branches missed.">        for (Libro libro : libros) {</span>
+<span class="nc" id="L287">            System.out.println(libro.toString());</span>
+<span class="nc" id="L288">        }</span>
+<span class="nc" id="L289">    }</span>
+
+    /**
+     * Metodo para mostrar los atributos de cada usuario registrado como
+     * ID, nombre, email, telefono y su rol
+     */
+    private void mostrarUsuarios() {
+<span class="nc" id="L296">        System.out.println(&quot;--- LISTADO DE USUARIOS ---&quot;);</span>
+
+<span class="nc bnc" id="L298" title="All 2 branches missed.">        if (usuarios.isEmpty()) {</span>
+<span class="nc" id="L299">            System.out.println(&quot;No hay usuarios registrados.&quot;);</span>
+<span class="nc" id="L300">            return;</span>
+        }
+
+<span class="nc bnc" id="L303" title="All 2 branches missed.">        for (Usuario usuario : usuarios) {</span>
+<span class="nc" id="L304">            System.out.println(usuario.toString());</span>
+<span class="nc" id="L305">        }</span>
+<span class="nc" id="L306">    }</span>
+
+    /**
+     * Metodo para mostrar los prestamos activos en el sistema. Se imprimen
+     * los detalles como ID, titulo del libro, nombre del usuario y fecha
+     */
+    public void mostrarPrestamosActivos() {
+<span class="nc" id="L313">        System.out.println(&quot;--- PRÉSTAMOS ACTIVOS ---&quot;);</span>
+
+<span class="nc" id="L315">        boolean hayPrestamos = false;</span>
+
+<span class="nc bnc" id="L317" title="All 2 branches missed.">        for (Prestamo prestamo : prestamos) {</span>
+<span class="nc bnc" id="L318" title="All 2 branches missed.">            if (!prestamo.isDevuelto()) {</span>
+<span class="nc" id="L319">                Libro libro = buscarLibroID(prestamo.getIdLibro());</span>
+<span class="nc" id="L320">                Usuario usuario = buscarUsuarioID(prestamo.getIdUsuario());</span>
+
+<span class="nc bnc" id="L322" title="All 4 branches missed.">                if (libro != null &amp;&amp; usuario != null) {</span>
+<span class="nc" id="L323">                    imprimirDetallePrestamoActivo(prestamo, libro, usuario);</span>
+<span class="nc" id="L324">                    hayPrestamos = true;</span>
+                }
+            }
+<span class="nc" id="L327">        }</span>
+
+<span class="nc bnc" id="L329" title="All 2 branches missed.">        if (!hayPrestamos) {</span>
+<span class="nc" id="L330">            System.out.println(&quot;No hay préstamos activos.&quot;);</span>
+        }
+<span class="nc" id="L332">    }</span>
+
+    // Cambios
+
+    /**
+     * Metodo para recuperar un numero entero desde la consola
+     * @return Numero entero ingresado desde la consola
+     */
+    public int inputNumber() {
+<span class="nc" id="L341">        int number = scanner.nextInt();</span>
+<span class="nc" id="L342">        scanner.nextLine(); // Consumir salto de linea</span>
+<span class="nc" id="L343">        return number;</span>
+    }
+
+    /**
+     * Metodo para buscar un libro segun su ID
+     * @param idLibro El parametro es el ID del libro que se quiere buscar
+     * @return Un objeto Libro si se encuentra el libro buscado, de lo contrario se devuelve null
+     */
+    private Libro buscarLibroID(int idLibro) {
+<span class="fc bfc" id="L352" title="All 2 branches covered.">        for (Libro libro : libros) {</span>
+<span class="pc bpc" id="L353" title="1 of 2 branches missed.">            if (libro.getId() == idLibro){</span>
+<span class="fc" id="L354">                return libro;</span>
+            }
+<span class="nc" id="L356">        }</span>
+<span class="fc" id="L357">        return null;</span>
+    }
+
+    /**
+     * Metodo que busca un usuario segun un ID
+     * @param idUsuario El parametro es el ID del usuario que se quiere buscar
+     * @return Un objeto Usuario si se encuentra el usuario buscado, de lo contrario se devuelve
+     * null
+     */
+    private Usuario buscarUsuarioID(int idUsuario) {
+<span class="fc bfc" id="L367" title="All 2 branches covered.">        for (Usuario usuario : usuarios) {</span>
+<span class="pc bpc" id="L368" title="1 of 2 branches missed.">            if (usuario.getId() == idUsuario){</span>
+<span class="fc" id="L369">                return usuario;</span>
+            }
+<span class="nc" id="L371">        }</span>
+<span class="fc" id="L372">        return null;</span>
+    }
+
+    /**
+     * Metodo que cuenta el numero de prestamos activos de un usuario
+     * @param idUsuario El parametro es el ID del usuario del que se quiere contar
+     *                  el numero de prestamos activos
+     * @return El numero de prestamos activos del usuario
+     */
+    private int contarPrestamosUsuario(int idUsuario) {
+<span class="fc" id="L382">        int librosUsuario = 0;</span>
+<span class="fc bfc" id="L383" title="All 2 branches covered.">        for (Prestamo p : prestamos) {</span>
+<span class="pc bpc" id="L384" title="2 of 4 branches missed.">            if (p.getIdUsuario() == idUsuario &amp;&amp; !p.isDevuelto()) {</span>
+<span class="fc" id="L385">                librosUsuario++;</span>
+            }
+<span class="fc" id="L387">        }</span>
+<span class="fc" id="L388">        return librosUsuario;</span>
+    }
+
+    /**
+     * Metodo que registra el prestamo para un usuario de un libro
+     * @param libro El parametro es el objeto Libro que es prestado
+     * @param idLibro El parametro es el ID del libro prestado
+     * @param idUsuario El parametro es el ID del usuario que solicita el prestamo
+     */
+    private void registrarPrestamo(Libro libro, int idLibro, int idUsuario) {
+<span class="fc" id="L398">        Date fechaPrestamo = new Date();</span>
+<span class="fc" id="L399">        Prestamo nuevoPrestamo = new Prestamo(prestamos.size() + 1, idLibro, idUsuario, fechaPrestamo, null, false);</span>
+<span class="fc" id="L400">        prestamos.add(nuevoPrestamo);</span>
+
+        // Marcar libro como no disponible
+<span class="fc" id="L403">        libro.setDisponible(false);</span>
+
+<span class="fc" id="L405">        System.out.println(&quot;Préstamo realizado con éxito.&quot;);</span>
+<span class="fc" id="L406">    }</span>
+
+     /**
+     * Metodo que busca el prestamo de un libro segun su id
+     * @param idLibro El parametro es el ID del libro del cual se busca un prestmamo
+     * @return Un objeto Prestamo del libro con el id solicitado, de lo contrario
+     * se devuelve null
+     */
+    private Prestamo buscarPrestamoLibro(int idLibro) {
+<span class="fc bfc" id="L415" title="All 2 branches covered.">        for (Prestamo prestamo : prestamos) {</span>
+<span class="pc bpc" id="L416" title="2 of 4 branches missed.">            if (prestamo.getIdLibro() == idLibro &amp;&amp; !prestamo.isDevuelto()) {</span>
+<span class="fc" id="L417">                return prestamo;</span>
+            }
+<span class="nc" id="L419">        }</span>
+<span class="fc" id="L420">        return null;</span>
+    }
+
+    /**
+     * Metodo que cambia el atributo disponible de un libro a true, segun un id
+     * @param idLibro El parametro es el id del libro del cual se cambia la disponibilidad
+     */
+    private void marcarLibroDisponible(int idLibro) {
+<span class="fc" id="L428">        buscarLibroID(idLibro).setDisponible(true);</span>
+<span class="fc" id="L429">    }</span>
+
+    /**
+     * Metodo que imprime en consola los detalles de un prestamo activo
+     * @param prestamo El parametro es el objeto Prestamo del cual se imprime informacion
+     * @param libro El parametro es el objeto Libro del prestamo activo
+     * @param usuario El parametro es el objeto Usuario del prestamo activo
+     */
+    private void imprimirDetallePrestamoActivo(Prestamo prestamo, Libro libro, Usuario usuario) {
+<span class="nc" id="L438">        System.out.println(&quot;ID Préstamo: &quot; + prestamo.getId() +</span>
+<span class="nc" id="L439">                &quot; | Libro: &quot; + libro.getTitulo() +</span>
+<span class="nc" id="L440">                &quot; | Usuario: &quot; + usuario.getNombre() +</span>
+<span class="nc" id="L441">                &quot; | Fecha: &quot; + prestamo.getFechaPrestamo());</span>
+<span class="nc" id="L442">    }</span>
+
+    /**
+     * Metodo publico para agregar un libro al atributo libros del objeto
+     * biblioteca
+     * @param libro El parametro que declara el libro que se quiere agregar
+     */
+    public void agregarLibro(Libro libro) {
+<span class="fc" id="L450">        libros.add(libro);</span>
+<span class="fc" id="L451">    }</span>
+
+    /**
+     * Metodo de acceso publico para buscar un libro seegun un id
+     * @param idLibro El parametro es el id del libro que se quiere buscar
+     * @return un objeto Libro si se encuentra el libro buscado, de lo contrario se devuelve null
+     */
+    public Libro buscarLibroIDPublico(int idLibro) {
+<span class="fc" id="L459">        return buscarLibroID(idLibro);</span>
+    }
+
+    /**
+     * Metodo publico que busca un usuario segun un ID
+     * @param idUsuario El parametro es el ID del usuario que se quiere buscar
+     * @return Un objeto Usuario si se encuentra el usuario buscado, de lo contrario se devuelve
+     * null
+     */
+    public Usuario buscarUsuarioIDPublico(int idUsuario) {
+<span class="fc" id="L469">        return buscarUsuarioID(idUsuario);</span>
+    }
+
+    /**
+     * Metodo publico para agregar un usuario
+     * @param usuario El parametro es el objeto usuario que se quiere agregar
+     */
+    public void agregarUsuario(Usuario usuario) {
+<span class="fc" id="L477">        usuarios.add(usuario);</span>
+<span class="fc" id="L478">    }</span>
+
+    /**
+     * Metoto publico para contar el numero de prestamos de un usuario
+     * @param idUsuario El parametro id del usuario del que se buscan prestamos
+     * @return el numero de prestamos del usuario
+     */
+    public int contarPrestamosUsuarioPublico(int idUsuario) {
+<span class="fc" id="L486">        return contarPrestamosUsuario(idUsuario);</span>
+    }
+
+    /**
+     * Metodo publico para registrar un prestamo
+     * @param libro Es el parametro del libro prestado
+     * @param idLibro Es el id del libro prestado
+     * @param idUsuario Es el id del usuario que solicita el prestamo
+     */
+    public void registrarPrestamoPublico(Libro libro, int idLibro, int idUsuario) {
+<span class="fc" id="L496">        registrarPrestamo(libro, idLibro, idUsuario);</span>
+<span class="fc" id="L497">    }</span>
+
+    /**
+     * Metodo para obtener el numero de prestamos
+     * @return el numero de prestamos registrados en la biblioteca
+     */
+    public int getNumeroPrestamos() {
+<span class="fc" id="L504">        return prestamos.size();</span>
+    }
+
+    /**
+     * Metodo publico que busca el prestamo de un libro segun su id
+     * @param idLibro El parametro es el ID del libro del cual se busca un prestmamo
+     * @return Un objeto Prestamo del libro con el id solicitado, de lo contrario
+     * se devuelve null
+     */
+    public Prestamo buscarPrestamoLibroPublico(int idLibro) {
+<span class="fc" id="L514">        return buscarPrestamoLibro(idLibro);</span>
+    }
+
+    /**
+     * Metodo publico para cambiar el atributo disponible de un libro a true, segun su
+     * id
+     * @param idLibro El parametro es el id del libro del cual se cambia la disponibilidad
+     */
+    public void marcarLibroDisponiblePublico(int idLibro) {
+<span class="fc" id="L523">        marcarLibroDisponible(idLibro);</span>
+<span class="fc" id="L524">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

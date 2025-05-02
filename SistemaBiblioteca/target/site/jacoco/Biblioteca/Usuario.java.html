@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Usuario.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SistemaBiblioteca</a> &gt; <a href="index.source.html" class="el_package">Biblioteca</a> &gt; <span class="el_source">Usuario.java</span></div><h1>Usuario.java</h1><pre class="source lang-java linenums">package Biblioteca;
+
+/**
+ * Esta clase abstracta contiene la informacion de un usuario registrado en la biblioteca.
+ * Tiene los getters y setter de cada atributo.
+ * @author Abraham
+ * @version 1.0
+ */
+public abstract class Usuario {
+    private int id;
+    private String nombre;
+    private String email;
+    private String telefono;
+
+    /**
+     * Constructor de la clase
+     * @param id Es el id del nuevo usuario
+     * @param nombre Es el nombre del nuevo usuario
+     * @param email El correo electronico del nuevo usuario
+     * @param telefono El numero telefonico del nuevo usuario
+     */
+<span class="fc" id="L22">    protected Usuario(int id, String nombre, String email, String telefono) {</span>
+<span class="fc" id="L23">        this.id = id;</span>
+<span class="fc" id="L24">        this.nombre = nombre;</span>
+<span class="fc" id="L25">        this.email = email;</span>
+<span class="fc" id="L26">        this.telefono = telefono;</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * Metodo estatico que permite la creacion de objetos que heredan de la clase abstracta
+     * Usuario actual. Se utiilza el parametro rol para identificar cual subclase crear
+     * @param id El id del nuevo usuario
+     * @param nombre El nombre del nuevo usuario
+     * @param email El correo electronico del nuevo usuario
+     * @param telefono El numero telefonico del nuevo usuario
+     * @param rol El rol del nuevo usuario que distingue a cada subclase
+     * @return Un objeto de tipo Usuario
+     * @throws IllegalArgumentException si el parametro rol no es reconocido
+     */
+    public static Usuario crearUsuario(int id, String nombre, String email, String telefono, String rol) {
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if (rol.equalsIgnoreCase(&quot;profesor&quot;)) {</span>
+<span class="nc" id="L42">            return new Profesor(id, nombre, email, telefono, rol);</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        } else if (rol.equalsIgnoreCase(&quot;estudiante&quot;)) {</span>
+<span class="fc" id="L44">            return new Estudiante(id, nombre, email, telefono, rol);</span>
+        } else {
+<span class="fc" id="L46">            throw new IllegalArgumentException(&quot;Rol de usuario invalido: &quot; + rol);</span>
+        }
+    }
+
+    /**
+     * Metodo abstracto getter rol para las subclases
+     * @return el rol del usuario
+     */
+    public abstract String getRol();
+
+    /**
+     * Metodo abstracto setter rol para las subclases
+     * @param rol El parametro para modificar el rol del usuario
+     */
+    public abstract void setRol(String rol);
+
+    // Getters y setters
+
+    /**
+     * Getter id
+     * @return id del usuario
+     */
+    public int getId() {
+<span class="fc" id="L69">        return id;</span>
+    }
+
+    /**
+     * Setter id
+     * @param id El parametro id para modificar el id del usuario
+     */
+    public void setId(int id) {
+<span class="nc" id="L77">        this.id = id;</span>
+<span class="nc" id="L78">    }</span>
+
+    /**
+     * Getter nombre
+     * @return nombre del usuario
+     */
+    public String getNombre() {
+<span class="nc" id="L85">        return nombre;</span>
+    }
+
+    /**
+     * Setter nombre
+     * @param nombre El parametro nombre para modificar el nombre del usuario
+     */
+    public void setNombre(String nombre) {
+<span class="nc" id="L93">        this.nombre = nombre;</span>
+<span class="nc" id="L94">    }</span>
+
+    /**
+     * Getter email
+     * @return email del usuario
+     */
+    public String getEmail() {
+<span class="nc" id="L101">        return email;</span>
+    }
+
+    /**
+     * Setter email
+     * @param email El parametro email para modificar el correo electronico del usuario
+     */
+    public void setEmail(String email) {
+<span class="nc" id="L109">        this.email = email;</span>
+<span class="nc" id="L110">    }</span>
+
+    /**
+     * Getter telefono
+     * @return cadena con el numero de telefono del usuario
+     */
+    public String getTelefono() {
+<span class="nc" id="L117">        return telefono;</span>
+    }
+
+    /**
+     * Setter telefono
+     * @param telefono El parametro para modificar el numero de telefono del usuario
+     */
+    public void setTelefono(String telefono) {
+<span class="nc" id="L125">        this.telefono = telefono;</span>
+<span class="nc" id="L126">    }</span>
+
+    /**
+     * Metodo toString del usuario
+     * @return cadena con detalles del usuario
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L134">        return &quot;ID: &quot; + this.getId() + &quot; | Nombre: &quot; + this.getNombre() +</span>
+<span class="nc" id="L135">                &quot; | Email: &quot; + this.getEmail() + &quot; | Teléfono: &quot; + this.getTelefono();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
