@@ -337,7 +337,7 @@ public class BibliotecaApp {
      * Metodo para recuperar un numero entero desde la consola
      * @return Numero entero ingresado desde la consola
      */
-    public int inputNumber() {
+    private int inputNumber() {
         int number = scanner.nextInt();
         scanner.nextLine(); // Consumir salto de linea
         return number;

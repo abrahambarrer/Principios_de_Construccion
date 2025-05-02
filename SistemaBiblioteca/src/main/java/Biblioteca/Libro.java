@@ -48,7 +48,7 @@ public abstract class Libro {
         } else if (formato.equalsIgnoreCase("rustico")) {
             return new Rustico(id, titulo, autor, anio, genero, disponible, formato);
         } else if (formato.equalsIgnoreCase("audiolibro")) {
-            return new Rustico(id, titulo, autor, anio, genero, disponible, formato);
+            return new Audiolibro(id, titulo, autor, anio, genero, disponible, formato);
         } else {
             throw new IllegalArgumentException("Tipo de libro desconocido: " + formato);
         }
